@@ -15,7 +15,7 @@
     formatscanf: .asciz "%d"
     formatprintf: .asciz "%d "
     formatprintf2: .asciz "%d\n"
-    new_line: .asciz "\n"
+    new_line: .asciz " \n"
     lungime_drum: .space 4
 
 .text
@@ -52,11 +52,6 @@ afisare_matrice:
             jmp for_coloane
             
     linie_noua:
-        movl $4,%eax
-        movl $1,%ebx
-        movl $new_line,%ecx
-        movl $2,%edx
-        int $0x80
         incl index
         jmp for_linii
 
@@ -168,6 +163,7 @@ rez_cerinta_2:
 	push $m1
 	push $m1
 	call matrix_mult
+    addl $16,%esp
     movl $1,index
     for_numar_inmultiri:
         movl index,%ecx
