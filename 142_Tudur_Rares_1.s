@@ -17,7 +17,6 @@
     formatscanf: .asciz "%d"
     formatprintf: .asciz "%d "
     formatprintf2: .asciz "%d\n"
-    new_line: .asciz "\n"
     lungime_drum: .space 4
 
 .text
@@ -126,23 +125,23 @@ rez_cerinta_3:
     call scanf
     addl $8,%esp
 
-    movl n,%eax # eax = n
-    movl n,%ebx # ebx = n
+    movl n,%eax 
+    movl n,%ebx 
 
     xorl %edx,%edx 
-    mull %ebx # eax = n * n
+    mull %ebx 
     movl %eax,dimensiune_matrice
 
     movl $4,%ebx
     mull %ebx # eax = 4 * n * n
     movl %eax,dimensiune_matrice_memorie
-    # mmap2
+    # mmap2 pentru mres
     movl $192,%eax
     movl $0,%ebx
     movl dimensiune_matrice_memorie,%ecx
-    movl $0x3,%edx
+    movl $0x3,%edx           #  PROT_READ | PROT_WRITE
     movl $0x22, %esi         #   MAP_PRIVATE | MAP_ANON
-    movl $-1, %edi           #   nu exista FD daca avem MAP_ANON
+    movl $-1, %edi
     movl $0, %ebp
     int  $0x80
     movl %eax,mres_mmap
