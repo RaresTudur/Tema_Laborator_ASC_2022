@@ -53,7 +53,7 @@ matrix_mult:
     movl 8(%ebp),%edi # adresa lui m1
     movl $0,-12(%ebp) # index_linie = 0
     for_linie_mult: # index_linie
-        cmp -20(%ebp),%ecx
+        cmp -12(%ebp),%ecx
         je exit_proc
         movl $0,-16(%ebp) # index_coloana
         for_coloana_mult:
@@ -152,6 +152,7 @@ rez_cerinta_3:
 	call matrix_mult
     addl $16,%esp
     movl $1,index
+    decl lungime_drum
     for_numar_inmultiri:
         movl index,%ecx
         cmp %ecx,lungime_drum
