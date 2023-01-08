@@ -228,7 +228,6 @@ main:
     movl $4,%ebx
     mull %ebx # eax = 4 * n * n
     movl %eax,dimensiune_matrice_memorie
-    # mmap2 pt m1
     movl $192,%eax
     movl $0,%ebx
     movl dimensiune_matrice_memorie,%ecx
