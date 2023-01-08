@@ -15,7 +15,8 @@
     formatscanf: .asciz "%d"
     formatprintf: .asciz "%d "
     formatprintf2: .asciz "%d\n"
-    new_line: .asciz " \n"
+    formatprintf_new_line: .asciz "%c"
+    new_line: .asciz "\n"
     lungime_drum: .space 4
 
 .text
@@ -27,13 +28,11 @@ afisare_matrice:
         movl index,%ecx
         cmp %ecx,n
         je et_exit
-
         movl $0,index_sec
         for_coloane:
             movl index_sec,%ecx
             cmp %ecx,n
             je linie_noua
-
             lea m1,%edi
             movl index,%eax
             xorl %edx,%edx
@@ -52,6 +51,14 @@ afisare_matrice:
             jmp for_coloane
             
     linie_noua:
+        push new_line
+        push $formatprintf_new_line
+        call printf
+        pop %ebx
+        pop %ebx
+        pushl $0
+        call fflush
+        pop %ebx
         incl index
         jmp for_linii
 
@@ -275,3 +282,4 @@ et_exit:
     movl $1,%eax
     xorl %ebx,%ebx
     int $0x80
+    
